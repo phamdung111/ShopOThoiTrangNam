@@ -1,0 +1,103 @@
+package ShopOThoiTrangNam.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import ShopOThoiTrangNam.entity.Admin;
+import ShopOThoiTrangNam.entity.Order;
+import ShopOThoiTrangNam.entity.Product;
+import ShopOThoiTrangNam.entity.ProductDetailsRepository;
+import ShopOThoiTrangNam.entity.User;
+import ShopOThoiTrangNam.service.AdminService;
+import ShopOThoiTrangNam.service.OrderService;
+import ShopOThoiTrangNam.service.ProductService;
+import ShopOThoiTrangNam.service.UserService;
+
+@Controller
+public class AdminControll {
+	@Autowired
+	AdminService adminService;
+	@Autowired
+	ProductService productService;
+	@Autowired
+	OrderService orderService;
+	@Autowired
+	UserService userService;
+	
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		
+		return "admin/adminlogin";
+	}
+	@PostMapping({"/adminlogin"})
+	public String adminlogin(@RequestParam(name = "user") String user, @RequestParam(name = "password") String password,
+			Model model,HttpSession session) {
+		Admin admin = adminService.getAdmin(user, password);
+		if(admin != null) {
+			session.setAttribute("admin", admin);
+			List<Product> listProduct = productService.findAll();
+			model.addAttribute("listProduct",listProduct);
+			return "admin/adminManagerProduct";
+			
+		}
+		String error = "Sai tài khoản hoặc mật khẩu";
+		model.addAttribute("error", error);
+		return "admin/adminManagerProduct";
+	}
+	@GetMapping("/productManager")
+	public String productManager(Model model) {
+		List<Product> listProduct = productService.findAll();
+		model.addAttribute("listProduct",listProduct);
+		return "admin/adminManagerProduct";
+	}
+	@GetMapping("/adminOrderManager")
+	public String adminOrderManager(Model model) {
+		List<Order> listOrder = adminService.getOrderSortTime();
+		model.addAttribute("listOrderSortTime", listOrder);
+		return "admin/adminOrderManager";
+	}
+	
+	@GetMapping("/orderdetails")
+	public String orderdetails(Model model, @RequestParam("orderId") int orderId) {
+		Date date = new Date();
+		
+		List<Order> listOrders = orderService.findByDate(date);
+		System.out.println(listOrders.get(0).getDate());
+		Order order = orderService.getById(orderId);
+		model.addAttribute("order", order);
+		return "admin/orderDetails";
+	}
+	@GetMapping("/topsales")
+	public String topsales(Model model) {
+		List<ProductDetailsRepository> topSales = adminService.topSales();
+		
+		model.addAttribute("topSales", topSales);
+		return "admin/topsales";
+	}
+	@GetMapping("/alluser")
+	public String alluser(Model model) {
+		List<User> listUsers = userService.findAll();
+		model.addAttribute("listUsers", listUsers);
+		return "admin/adminManagerUser";
+	}
+	@GetMapping("/sales")
+	public String sales(Model model) {
+		int totalsales = adminService.sales();
+		model.addAttribute("totalsales", totalsales);
+		return "admin/sales";
+	}
+	@GetMapping("/listorderbydate")
+	public String listorderbydate(Model model, @RequestParam("date") Date date) {
+		
+		return "admin/listorderbydate";
+	}
+}

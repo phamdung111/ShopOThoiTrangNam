@@ -1,0 +1,14 @@
+package ShopOThoiTrangNam.service;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import ShopOThoiTrangNam.entity.ProductDetailsRepository;
+
+@Repository
+@Transactional
+public interface ProductDetailsRepositoryService extends JpaRepository<ProductDetailsRepository, Integer>{
+
+}

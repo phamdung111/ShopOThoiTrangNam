@@ -1,0 +1,16 @@
+package ShopOThoiTrangNam.service;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import ShopOThoiTrangNam.entity.ProductDetails;
+
+@Repository
+@Transactional
+public interface ProductDetailsService extends JpaRepository<ProductDetails, Integer>{
+	@Query("select c.productDetailsId from ProductDetails c where c.productDetailsColor = ?1 and c.pid =?2")
+	int getProductIDDetailsForCart(String color, int productId);
+}

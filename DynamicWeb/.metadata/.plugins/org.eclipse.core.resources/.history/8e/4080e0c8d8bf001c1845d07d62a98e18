@@ -1,0 +1,77 @@
+<header th:fragment="header" class="header">
+      <div class="header__top">
+        <div class="container-fluid">
+          <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                  <p>Trần Hưng Đạo stress -  Hotline: 0975659499</p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">  
+                  <div class="header__actions"> <p th:text="${session.username}"></p>
+                  	<div th:if="${session.username != null}">
+                  		<a href="/logout">Logout</a>
+                  	</div>
+                   <div th:if="${session.username == null}">
+                  		<a th:href="@{/login(url=${#httpServletRequest.servletPath})}">Login & Regiser</a> 
+                  	</div>
+                   
+                  
+                  
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+      <nav class="navigation">
+        <div class="container-fluid">
+          <div class="navigation__column left">
+            <div class="header__logo"><a class="ps-logo" href="/"><img th:src="@{images/logo.png}" alt="#"></a></div>
+          </div>
+          <div  class="navigation__column center">
+                <ul class="main-menu menu">
+                  <li class="menu-item"><a th:href="@{/index}">Home</a></li>
+                  <!-- <li class="menu-item"><a href="#">Men</a></li>
+                  <li class="menu-item"><a href="#">Women</a></li>
+                  <li class="menu-item"><a href="#">Kids</a></li>
+                  <li class="menu-item"><a href="#">News</a></li>
+                  <li class="menu-item"><a href="#">Contact</a> </li> -->
+                </ul>
+                <ul th:each="item:${allType}" class="main-menu menu">
+                  <li class="menu-item"><a th:text="${item}" th:href="@{/type(productByType=${item})}"></a></li>
+                </ul>
+          </div>
+          <div class="navigation__column right">
+            <form class="ps-search--header" action="/search" method="post">
+              <input name ="search" class="form-control" type="text" placeholder="Tìm kiếm">
+              <button><i class="ps-icon-search"></i></button>
+            </form>
+           <!--  cart no login -->
+            <div th:if = "${session.userid == null}" class="ps-cart"><a class="ps-cart__toggle" href="#"><span><i></i></span><i class="ps-icon-shopping-cart"></i></a>
+              <div style="background: white;" class="ps-cart__listing">
+               
+                <h5><a href="/login">Đăng nhập để tạo giỏ hàng</a></h5>
+              </div>
+            </div>
+            
+            <!-- login show cart -->
+            
+            <div th:if = "${session.listCart != null}" class="ps-cart"><a class="ps-cart__toggle" href="#"><span><i></i></span><i class="ps-icon-shopping-cart"></i></a>
+              <div class="ps-cart__listing">
+                <div th:each="productCart : ${session.listCart}" class="ps-cart__content">
+                
+                  <div class="ps-cart-item"><a th:src ="@{'/images/'+${productCart.productDetailsRepository.productDetails.productDetailsUrl}}" class="ps-cart-item__close" href="#"></a>
+                    <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img th:src ="@{'/images/'+${productCart.productDetailsRepository.productDetails.productDetailsUrl}}" alt=""></div>
+                    <div class="ps-cart-item__content"><a th:text="${productCart.productDetailsRepository.productDetails.product.productName}" class="ps-cart-item__title" href="product-detail.html"></a>
+                      <p><span>SL:<i th:text="${productCart.amount}"></i></span><span>Giá:<i th:text="${productCart.productDetailsRepository.productDetails.product.productPrice}"></i></span></p>
+                    </div>
+                  </div>
+                 
+       
+                </div>
+                <div class="ps-cart__footer"><a class="ps-btn" href="/payment">Thanh toán<i class="ps-icon-arrow-left"></i></a></div>
+              </div>
+            </div>
+            <div class="menu-toggle"><span></span></div>
+          </div>
+        </div>
+      </nav>
+    </header>

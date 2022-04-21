@@ -1,0 +1,5 @@
+package ShopOThoiTrangNam.service;
+
+public interface ProductDetailsService {
+
+}

@@ -1,0 +1,9 @@
+package ShopOThoiTrangNam.service;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import ShopOThoiTrangNam.entity.OrderDetails;
+
+public interface OrderDetailsService extends JpaRepository<OrderDetails, Integer>{
+}

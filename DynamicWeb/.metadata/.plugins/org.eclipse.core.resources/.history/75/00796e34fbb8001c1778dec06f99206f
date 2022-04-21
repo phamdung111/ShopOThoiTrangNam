@@ -1,0 +1,33 @@
+package ShopOThoiTrangNam.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "productdetails")
+public class ProductDetails implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name = "p_dt_id")
+	private int productDetailsId;
+	
+	@Column(name = "p_color")
+	private String productDetailsColor;
+	
+	@Column(name = "p_url")
+	private String productDetailsUrl;
+	
+//	@ManyToOne
+//	@JoinColumn(name = "p_id")
+//	private Product product;
+}

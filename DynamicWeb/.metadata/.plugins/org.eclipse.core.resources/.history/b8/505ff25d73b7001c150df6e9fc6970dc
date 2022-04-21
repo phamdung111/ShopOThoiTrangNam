@@ -1,0 +1,32 @@
+package Test.control;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import Test.Service.DepartmentService;
+import Test.Service.EmployeeService;
+import Test.entity.Department;
+import Test.entity.Employee;
+
+@Controller
+public class HomeController {
+	@Autowired
+	DepartmentService departmentService;
+	@Autowired
+	EmployeeService employeeService;
+	@GetMapping(value = "/")
+	public String index(Model model) {
+		List<Department> list = departmentService.getDepartmentById(1);
+		for(Department department : list) {
+			for(Employee employee : department.getEmployees())
+			System.out.println(employee.getEmployeeName());
+		}
+		List<Employee> list2 = employeeService.list();
+//		System.out.println(list2.get(0).getEmployeeName());
+		return "index";
+	}
+}

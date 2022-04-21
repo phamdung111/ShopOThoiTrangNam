@@ -1,0 +1,172 @@
+package ShopOThoiTrangNam.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "products")
+public class Product implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "productid")
+	private int productId;
+	
+	@Column(name = "productname")
+	private String productName;
+	
+	@Column(name = "productdescription")
+	private String productDescription;
+	
+	@Column(name = "productprice")
+	private int productPrice;
+	
+	@Column(name = "producturlshow")
+	private String productUrlShow;
+	
+	@Column(name = "producttypeid")
+	private String productTypeId;
+	
+	@Column(name = "productpromotion")
+	private int productPromotion;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "productdate")
+	private Date productDate;
+	
+//	private int Pricefinal;
+//	
+//	public int getPricefinal() {
+//		int price = this.productPrice;
+//		int promotion = this.productPromotion;
+//		int pricefinal = price - (price * promotion /100);
+//		return pricefinal;
+//	}
+//
+//
+//	public void setPricefinal(int pricefinal) {
+//		Pricefinal = pricefinal;
+//	}
+
+
+	public Product() {
+		super();
+	}
+
+
+	public Product(int productId, String productName, String productDescription, int productPrice,
+			String productUrlShow, String productTypeId, int productPromotion, Date productDate) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.productDescription = productDescription;
+		this.productPrice = productPrice;
+		this.productUrlShow = productUrlShow;
+		this.productTypeId = productTypeId;
+		this.productPromotion = productPromotion;
+		this.productDate = productDate;
+	}
+
+
+	public int getProductId() {
+		return productId;
+	}
+
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+
+	public String getProductName() {
+		return productName;
+	}
+
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+
+
+	public int getProductPrice() {
+		return productPrice;
+	}
+
+
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
+	}
+
+
+	public String getProductUrlShow() {
+		return productUrlShow;
+	}
+
+
+	public void setProductUrlShow(String productUrlShow) {
+		this.productUrlShow = productUrlShow;
+	}
+
+
+	public String getProductTypeId() {
+		return productTypeId;
+	}
+
+
+	public void setProductTypeId(String productTypeId) {
+		this.productTypeId = productTypeId;
+	}
+
+
+	public int getProductPromotion() {
+		return productPromotion;
+	}
+
+
+	public void setProductPromotion(int productPromotion) {
+		this.productPromotion = productPromotion;
+	}
+
+
+	public Date getProductDate() {
+		return productDate;
+	}
+
+
+	public void setProductDate(Date productDate) {
+		this.productDate = productDate;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
+	
+	
+}

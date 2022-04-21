@@ -1,0 +1,54 @@
+package ShopOThoiTrangNam.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+@Entity
+@Table(name = "products")
+public class Product implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name = "p_id")
+	private int productId;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "p_date")
+	private Date date;
+	
+	
+	@Column(name = "p_description")
+	private String productDescription;
+	
+	@Column(name = "p_name")
+	private String productName;
+	
+	@Column(name = "p_price")
+	private int productPrice;
+
+	@Column(name = "p_promotion")
+	private int productPromotion;
+	
+	@Column(name = "p_type")
+	private String productType;
+	
+	@Column(name = "p_url_main")
+	private String productUrlMains;
+	
+	@OneToMany(mappedBy = "product")
+	
+	private Set<ProductDetails> productDetails;
+}

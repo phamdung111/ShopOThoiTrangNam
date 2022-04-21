@@ -1,0 +1,61 @@
+package ShopOThoiTrangNam.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import ShopOThoiTrangNam.entity.Product;
+import ShopOThoiTrangNam.entity.ProductDetail;
+import ShopOThoiTrangNam.service.AdminService;
+import ShopOThoiTrangNam.service.ProductDetailService;
+import ShopOThoiTrangNam.service.ProductService;
+import ShopOThoiTrangNam.service.UserService;
+
+@Controller
+public class HomeControll {
+	@Autowired
+	UserService userService;
+	@Autowired
+	AdminService adminService;
+	@Autowired
+	ProductService productService;
+	@Autowired
+	ProductDetailService productDetailService;
+
+	
+	@GetMapping(value = {"/","/index"})
+	public String index(Model model) {
+		List<String> allType = productService.getAllType();
+		model.addAttribute("allType", allType);
+	
+		
+		
+		return "user/index";
+	}
+	
+	@GetMapping("/type")
+	public String allProductType(Model model,@RequestParam(name = "productByType") String type) {
+		List<String> allType = productService.getAllType();
+		model.addAttribute("allType", allType);
+		
+		List<Product> listProductByType = productService.getProductByType(type);
+		model.addAttribute("listProductByType", listProductByType)
+		
+		
+		
+		;
+		return "user/product-listing";
+	}
+	
+	@GetMapping("/product")
+	public String productDetails(Model model, @RequestParam(name = "Details") int productId) {
+		Product product = productService.getProductById(productId);
+		model.addAttribute("productdetail", product);
+		
+		return "user/product-detail";
+	}
+}

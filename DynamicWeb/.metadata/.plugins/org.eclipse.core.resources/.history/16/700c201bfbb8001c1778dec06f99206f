@@ -1,0 +1,32 @@
+package ShopOThoiTrangNam.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+
+@Entity
+@Table(name = "order")
+public class Order implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name = "order_id")
+	private int orderId;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_order")
+	private Date date;
+	
+	@Column(name = "order_total_money")
+	private int totalMoney;
+}

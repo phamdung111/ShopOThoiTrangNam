@@ -1,0 +1,41 @@
+package ShopOThoiTrangNam.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "cart_details")
+public class CartDetails implements Serializable{
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name = "cart_dt_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int cartDetailsId;
+	
+	@Column(name = "amount")
+	private int amount;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fkcart")
+	private Cart cart;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fkproductDetailsRepository")
+	private ProductDetailsRepository productDetailsRepository;
+	
+}

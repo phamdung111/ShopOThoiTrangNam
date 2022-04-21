@@ -1,0 +1,19 @@
+package ShopOThoiTrangNam.service;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import ShopOThoiTrangNam.entity.Admin;
+import ShopOThoiTrangNam.entity.Order;
+@Repository
+@Transactional
+public interface AdminService extends JpaRepository<Admin, String>{
+	@Query("select c from Admin c where c.admin = ?1 and c.adminPassword = ?2")
+	Admin getAdmin(String admin, String password);
+	
+	@Query("select c from Order c group by c.date DESC")
+	Order getOrderSortTime();
+}
